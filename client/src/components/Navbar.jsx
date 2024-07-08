@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const Navbar = ({ userRole, handleLogout }) => {
   const isLoggedIn = !!userRole;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container">
         <Link className="navbar-brand" to="/">
           <i className="fa-solid fa-desktop space"></i>
@@ -49,14 +49,14 @@ const Navbar = ({ userRole, handleLogout }) => {
               </>
             )}
 
-            {userRole === "user" && (
+            {userRole === 'user' && (
               <li className="nav-item">
                 <Link className="nav-link" to="/dashboard">
                   User Panel
                 </Link>
               </li>
             )}
-            {userRole === "admin" && (
+            {userRole === 'admin' && (
               <li className="nav-item">
                 <Link className="nav-link" to="/dashboard">
                   <i className="fa-solid fa-lock space"></i>
