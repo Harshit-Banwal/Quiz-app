@@ -4,7 +4,6 @@ import '../assets/css/Home.css';
 import { api } from '../API';
 import { useNavigate } from 'react-router-dom';
 const QuizCreation = () => {
-
   const navigate = useNavigate();
 
   const [quiz, setQuiz] = useState({
@@ -40,12 +39,12 @@ const QuizCreation = () => {
     setQuiz(updatedQuiz);
   };
 
-  const handleSaveQuiz = () => {
-    axios
+  const handleSaveQuiz = async () => {
+    await axios
       .post(`${api}/quizzes/create`, quiz)
       .then((response) => {
         console.log(response.data);
-        navigate("/dashboard")
+        navigate('/dashboard');
       })
       .catch((error) => {
         console.error('Error creating quiz:', error);

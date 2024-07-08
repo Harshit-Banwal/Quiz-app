@@ -17,18 +17,23 @@ const QuizPlay = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${api}/quizzes/${id}`)
-      .then((response) => {
-        setQuiz(response.data);
-        setSelectedAnswers(
-          new Array(response.data.questions.length).fill(null)
-        );
-        setCorrectAnswers(response.data.questions.map((q) => q.correctAnswer));
-      })
-      .catch((error) => {
-        console.error('Error fetching quiz:', error);
-      });
+    const fetchData = async () => {
+      await axios
+        .get(`${api}/quizzes/${id}`)
+        .then((response) => {
+          setQuiz(response.data);
+          setSelectedAnswers(
+            new Array(response.data.questions.length).fill(null)
+          );
+          setCorrectAnswers(
+            response.data.questions.map((q) => q.correctAnswer)
+          );
+        })
+        .catch((error) => {
+          console.error('Error fetching quiz:', error);
+        });
+    };
+    fetchData();
   }, [id]);
 
   const handleOptionSelect = (questionIndex, optionIndex) => {
@@ -53,7 +58,7 @@ const QuizPlay = () => {
     window.history.back();
   };
 
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = async () => {
     // Check if any question is unanswered
     if (selectedAnswers.includes(null)) {
       alert('Please answer all questions before submitting.');
@@ -61,12 +66,13 @@ const QuizPlay = () => {
     }
 
     // Proceed with submitting the quiz
-    axios
+    await axios
       .post(`${api}/quizzes/${id}/submit`, {
         selectedAnswers,
       })
       .then((response) => {
         setScore(response.data.score);
+        console.log(score);
         setShowModal(true); // Show the modal when the score is available
       })
       .catch((error) => {

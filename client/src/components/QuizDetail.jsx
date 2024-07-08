@@ -9,14 +9,17 @@ const QuizDetail = () => {
   const [quiz, setQuiz] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${api}/quizzes/${id}`)
-      .then((response) => {
-        setQuiz(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching quiz:', error);
-      });
+    const fetchData = async () => {
+      await axios
+        .get(`${api}/quizzes/${id}`)
+        .then((response) => {
+          setQuiz(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching quiz:', error);
+        });
+    };
+    fetchData();
   }, [id]);
 
   if (!quiz) {

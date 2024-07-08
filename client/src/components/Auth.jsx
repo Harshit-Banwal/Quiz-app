@@ -6,11 +6,11 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const userData = { email, password };
 
     // Send login data to the server using axios
-    axios
+    await axios
       .post('/api/users/login', userData)
       .then((response) => {
         console.log(response.data);
@@ -21,11 +21,11 @@ const Auth = () => {
       });
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const userData = { email, password };
 
     // Send registration data to the server using axios
-    axios
+    await axios
       .post('/api/users/register', userData)
       .then((response) => {
         console.log(response.data);
